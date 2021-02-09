@@ -14,19 +14,23 @@ protocol CheckInternetDelegate{
 }
 
 class NoInternetVC: UIViewController {
+    
+    //These properties can probalyby private
     var reachability: Reachability?
     let hostNames = [nil, "google.com", "invalidhost"]
     var hostIndex = 0
-    @IBOutlet weak var btnTryAgain: UIButton!
+    @IBOutlet weak var btnTryAgain: UIButton! // move this to separate space. Doesnt look neet here.
     var NoInternetViewController :NoInternetVC?
-    var checkNet : CheckInternetDelegate?
+    var checkNet : CheckInternetDelegate? // delegate should be weak to avoid retain cyle
     
-    override func viewDidLoad() {
+    override func viewDidLoad() { //This can be removed.
         super.viewDidLoad()
 
+        //Remove comments
         // Do any additional setup after loading the view.
     }
     
+    //Remove weird capitalization
     @IBAction func btnTryAgainPRessed(_ sender: Any) {
         
             reachability = Reachability.init()

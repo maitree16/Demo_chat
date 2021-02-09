@@ -14,15 +14,28 @@ import GooglePlaces
 import OpalImagePicker
 import Photos
 
+enum MessageTypeEnum: String {
+    case image
+    case message
+    case location
+}
+
 struct TestChat {
     let message:String
     let msgtype: String
+    var useEnumForMsgType: MessageTypeEnum {
+        MessageTypeEnum(rawValue: msgtype) ?? .message
+    }
     let sender_id:String
     let receiver_name:String
     let time_format: String
     let sendername:String
     let receiver_id:String
     let filepath:String
+    
+    var userIdEqualsMagicNumber34: Bool {
+        sender_id == "34"
+    }
 }
 
 class PersonalChatVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UITextViewDelegate,CurrentLocationDelegate {
@@ -44,7 +57,7 @@ class PersonalChatVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     var message = ""
     var imageUpload = UIImage()
     
-    
+ 
     var msgDta = [TestChat.init(message: "locationNAme", msgtype: "location", sender_id: "34", receiver_name: "ghj", time_format: "1min ago", sendername: "def", receiver_id: "29",filepath : "23.022505,72.571365"),
                TestChat.init(message: "", msgtype: "image", sender_id: "34", receiver_name: "ghj", time_format: "1min ago", sendername: "def", receiver_id: "29",filepath : ""),
                TestChat.init(message: "test1", msgtype: "message", sender_id: "34", receiver_name: "ghj", time_format: "1min ago", sendername: "def", receiver_id: "29",filepath : ""),
@@ -126,21 +139,28 @@ class PersonalChatVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         return 0
     }
 
-    
+    //Please simply the metthid. Pass message to ChatTableViewCell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = chatTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ChatTableViewCell
-        let userid = "34"
-        cell?.selectionStyle = .none
-        let cellImage = tableView.dequeueReusableCell(withIdentifier: "cellImage") as! ChatImageTableViewCell
+        guard let cell = chatTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ChatTableViewCell else {
+            return UITableViewCell()
+        }
         
-        if userid != msgDta[indexPath.row].sender_id{
-            if msgDta[indexPath.row].msgtype == "location"{
-               
-                
-                cell?.sender_stack_con.constant = 30
-                cell?.img_sender_con.constant = 150
-                cell?.img_reciver_con.constant = 150
-                cell?.reciver_stact_con.constant = 30
+        guard let message = msgDta[safe: indexPath.row] else {
+            return UITableViewCell()
+        }
+        let userid = "34" //Why 34?
+        cell.selectionStyle = .none
+        let cellImage = tableView.dequeueReusableCell(withIdentifier: StringConstants.cellImage.rawValue) as! ChatImageTableViewCell //WTF?
+  
+        if message.userIdEqualsMagicNumber34 {
+            
+            switch message.useEnumForMsgType {
+
+            case .location:
+                cell.sender_stack_con.constant = 30
+                cell.img_sender_con.constant = 150
+                cell.img_reciver_con.constant = 150
+                cell.reciver_stact_con.constant = 30
                 
                 let lat = msgDta[indexPath.row].filepath
                 let location = lat.split(separator: ",")
@@ -149,96 +169,96 @@ class PersonalChatVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                 
                 print(url)
                 
-                cell?.receiverView.isHidden = true
-                cell?.senderView.isHidden = true
-                cell?.senderStackView.isHidden = true
-                cell?.receiverStackView.isHidden = false
-                cell?.LocationName.isHidden = false
-                cell?.LocationName.text = msgDta[indexPath.row].message
-                cell?.senderSendImge.isHidden = true
-                cell?.ReceiverGetImage.isHidden = false
-                cell?.ReceiverImage.isHidden = false
-                cell?.senderImage.isHidden = true
-                cell?.lblReceiverMsg.isHidden = true
-                cell?.ReceiverImage.image = #imageLiteral(resourceName: "user (3)")
+                cell.receiverView.isHidden = true
+                cell.senderView.isHidden = true
+                cell.senderStackView.isHidden = true
+                cell.receiverStackView.isHidden = false
+                cell.LocationName.isHidden = false
+                cell.LocationName.text = msgDta[indexPath.row].message
+                cell.senderSendImge.isHidden = true
+                cell.ReceiverGetImage.isHidden = false
+                cell.ReceiverImage.isHidden = false
+                cell.senderImage.isHidden = true
+                cell.lblReceiverMsg.isHidden = true
+                cell.ReceiverImage.image = #imageLiteral(resourceName: "user (3)")
                 
-                cell!.receivertime.text = msgDta[indexPath.row].time_format
+                cell.receivertime.text = msgDta[indexPath.row].time_format
                
-                cell?.ReceiverGetImage.sd_setImage(with: URL(string: url) , placeholderImage: #imageLiteral(resourceName: "locationFeed"))
-                return cell!
+                cell.ReceiverGetImage.sd_setImage(with: URL(string: url) , placeholderImage: #imageLiteral(resourceName: "locationFeed"))
+                return cell
+            case .image:
+                cell.sender_stack_con.constant = 30
+                cell.img_sender_con.constant = 150
+                cell.img_reciver_con.constant = 150
+                cell.reciver_stact_con.constant = 30
                 
-                
-            }else if msgDta[indexPath.row].msgtype == "image"{
-
-                cell?.sender_stack_con.constant = 30
-                cell?.img_sender_con.constant = 150
-                cell?.img_reciver_con.constant = 150
-                cell?.reciver_stact_con.constant = 30
-                
-                cell?.receiverView.isHidden = true
-                cell?.senderView.isHidden = true
-                cell?.senderSendImge.isHidden = true
-                cell?.ReceiverGetImage.isHidden = false
-               // cell?.lblsenderMsg.isHidden = true
-               // cell?.lblReceiverMsg.isHidden = true
-                cell?.ReceiverImage.isHidden = false
-                cell?.senderImage.isHidden = true
-                cell?.lblReceiverMsg.isHidden = true
-                cell?.ReceiverImage.image = #imageLiteral(resourceName: "user (3)")
-               // cell?.senderLblTime.isHidden = false
-               // cell?.receiverLblTime.isHidden = true
-                cell?.senderStackView.isHidden = true
-                cell?.receiverStackView.isHidden = false
-                cell?.LocationName.isHidden = true
+                cell.receiverView.isHidden = true
+                cell.senderView.isHidden = true
+                cell.senderSendImge.isHidden = true
+                cell.ReceiverGetImage.isHidden = false
+               // cell.lblsenderMsg.isHidden = true
+               // cell.lblReceiverMsg.isHidden = true
+                cell.ReceiverImage.isHidden = false
+                cell.senderImage.isHidden = true
+                cell.lblReceiverMsg.isHidden = true
+                cell.ReceiverImage.image = #imageLiteral(resourceName: "user (3)")
+               // cell.senderLblTime.isHidden = false
+               // cell.receiverLblTime.isHidden = true
+                cell.senderStackView.isHidden = true
+                cell.receiverStackView.isHidden = false
+                cell.LocationName.isHidden = true
               
-                cell?.senderLblTime.backgroundColor = UIColor.white
+                cell.senderLblTime.backgroundColor = UIColor.white
 
-                cell!.receivertime.text = msgDta[indexPath.row].time_format
+                cell.receivertime.text = msgDta[indexPath.row].time_format
                 let formatter = DateFormatter.init()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 //formatter.locale = Locale.init(identifier: "en_US_POSIX")
-                cell?.ReceiverGetImage.image = #imageLiteral(resourceName: "user (3)")
-                return cell!
+                cell.ReceiverGetImage.image = #imageLiteral(resourceName: "user (3)")
+                return cell
                // return cellImage
-            }else {
-                cell?.sender_stack_con.constant = 0
-                cell?.img_sender_con.constant = 0
-                cell?.img_reciver_con.constant = 0
-                cell?.reciver_stact_con.constant = 0
+            case .message:
+                cell.sender_stack_con.constant = 0
+                cell.img_sender_con.constant = 0
+                cell.img_reciver_con.constant = 0
+                cell.reciver_stact_con.constant = 0
                 
-                cell?.receiverView.isHidden = false
-                cell?.senderView.isHidden = false
-                cell?.senderStackView.isHidden = true
-                cell?.receiverStackView.isHidden = true
-                cell?.senderSendImge.isHidden = true
-                cell?.ReceiverGetImage.isHidden = true
-                cell?.lblsenderMsg.isHidden = true
-                cell?.lblReceiverMsg.isHidden = false
-                cell?.ReceiverImage.isHidden = false
-                cell?.senderImage.isHidden = true
-                cell?.lblReceiverMsg.text = msgDta[indexPath.row].message
-                cell?.ReceiverImage.image = #imageLiteral(resourceName: "user (3)")
-                cell?.senderLblTime.isHidden = false
-                cell?.receiverLblTime.isHidden = true
-                cell?.receiverView.isHidden = false
-                cell?.senderView.isHidden = true
-                cell?.senderLblTime.backgroundColor = UIColor.clear
+                cell.receiverView.isHidden = false
+                cell.senderView.isHidden = false
+                cell.senderStackView.isHidden = true
+                cell.receiverStackView.isHidden = true
+                cell.senderSendImge.isHidden = true
+                cell.ReceiverGetImage.isHidden = true
+                cell.lblsenderMsg.isHidden = true
+                cell.lblReceiverMsg.isHidden = false
+                cell.ReceiverImage.isHidden = false
+                cell.senderImage.isHidden = true
+                cell.lblReceiverMsg.text = msgDta[indexPath.row].message
+                cell.ReceiverImage.image = #imageLiteral(resourceName: "user (3)")
+                cell.senderLblTime.isHidden = false
+                cell.receiverLblTime.isHidden = true
+                cell.receiverView.isHidden = false
+                cell.senderView.isHidden = true
+                cell.senderLblTime.backgroundColor = UIColor.clear
 
-                cell!.senderLblTime.text = msgDta[indexPath.row].time_format
+                cell.senderLblTime.text = msgDta[indexPath.row].time_format
                 let formatter = DateFormatter.init()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 //formatter.locale = Locale.init(identifier: "en_US_POSIX")
                 
-                return cell!
-                
+                return cell
             }
             
+
+            
         }else{
-            if msgDta[indexPath.row].msgtype == "location"{
-                cell?.sender_stack_con.constant = 30
-                cell?.img_sender_con.constant = 150
-                cell?.img_reciver_con.constant = 150
-                cell?.reciver_stact_con.constant = 30
+            
+            switch message.useEnumForMsgType {
+            case .location:
+                cell.sender_stack_con.constant = 30
+                cell.img_sender_con.constant = 150
+                cell.img_reciver_con.constant = 150
+                cell.reciver_stact_con.constant = 30
                 
                 let lat = msgDta[indexPath.row].filepath
                 let location = lat.split(separator: ",")
@@ -248,47 +268,40 @@ class PersonalChatVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                 print(url)
             
                 
-                cell?.senderStackView.isHidden = false
-                cell?.receiverStackView.isHidden = true
-                cell?.receiverView.isHidden = true
-                cell?.senderView.isHidden = true
-                cell?.senderLocationName.text = msgDta[indexPath.row].message
-                cell?.senderLocationName.isHidden = false
-                //cell?.senderWidth.constant = 200
-                //cell?.senderHeight.constant = 150
-                cell?.senderSendImge.isHidden = false
-                cell?.ReceiverGetImage.isHidden = true
+                cell.senderStackView.isHidden = false
+                cell.receiverStackView.isHidden = true
+                cell.receiverView.isHidden = true
+                cell.senderView.isHidden = true
+                cell.senderLocationName.text = msgDta[indexPath.row].message
+                cell.senderLocationName.isHidden = false
+                //cell.senderWidth.constant = 200
+                //cell.senderHeight.constant = 150
+                cell.senderSendImge.isHidden = false
+                cell.ReceiverGetImage.isHidden = true
             
-                cell?.senderLblTime.isHidden = true
-                cell?.receiverLblTime.isHidden = false
-                cell?.lblsenderMsg.isHidden = true
-                cell?.lblReceiverMsg.isHidden = true
-                cell?.ReceiverImage.isHidden = true
-                cell?.senderImage.isHidden = false
-                cell?.lblsenderMsg.frame.inset(by: UIEdgeInsets.init(top: 5, left: 15, bottom: 5, right: 15))
-                cell?.senderImage.image = #imageLiteral(resourceName: "user (3)")
+                cell.senderLblTime.isHidden = true
+                cell.receiverLblTime.isHidden = false
+                cell.lblsenderMsg.isHidden = true
+                cell.lblReceiverMsg.isHidden = true
+                cell.ReceiverImage.isHidden = true
+                cell.senderImage.isHidden = false
+                cell.lblsenderMsg.frame.inset(by: UIEdgeInsets.init(top: 5, left: 15, bottom: 5, right: 15))
+                cell.senderImage.image = #imageLiteral(resourceName: "user (3)")
                 
-                cell?.senderSendImge.sd_setImage(with: URL(string: url) , placeholderImage: #imageLiteral(resourceName: "locationFeed"))
+                cell.senderSendImge.sd_setImage(with: URL(string: url) , placeholderImage: #imageLiteral(resourceName: "locationFeed"))
                 // let date = self.messageData[indexPath.row]["created_date"] as? String ?? ""
                 let formatter = DateFormatter.init()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 // formatter.locale = Locale.init(identifier: "en_US_POSIX")
+                cell.sendertime.text = msgDta[indexPath.row].time_format
+                cell.receiverLblTime.backgroundColor = UIColor.white
                 
-              
-                
-               
-                cell!.sendertime.text = msgDta[indexPath.row].time_format
-                cell?.receiverLblTime.backgroundColor = UIColor.white
-
-               
-                return cell!
-                
-            }else if msgDta[indexPath.row].msgtype == "image"{
-                
-                cell?.sender_stack_con.constant = 30
-                cell?.img_sender_con.constant = 150
-                cell?.img_reciver_con.constant = 150
-                cell?.reciver_stact_con.constant = 30
+                return cell // 
+            case .image:
+                cell.sender_stack_con.constant = 30
+                cell.img_sender_con.constant = 150
+                cell.img_reciver_con.constant = 150
+                cell.reciver_stact_con.constant = 30
                 cellImage.senderProfile.isHidden = false
                 cellImage.senderSendImage.isHidden = false
 
@@ -298,83 +311,81 @@ class PersonalChatVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                 cellImage.senderSendImage.image = #imageLiteral(resourceName: "user (3)")
                 cellImage.senderProfile.image = #imageLiteral(resourceName: "user (3)")
                // return cellImage
-                cell?.senderStackView.isHidden = false
-                cell?.receiverStackView.isHidden = true
-                cell?.receiverView.isHidden = true
-                cell?.senderView.isHidden = true
-                //cell?.senderWidth.constant = 200
-               // cell?.senderHeight.constant = 150
-                cell?.senderSendImge.isHidden = false
-                cell?.ReceiverGetImage.isHidden = true
+                cell.senderStackView.isHidden = false
+                cell.receiverStackView.isHidden = true
+                cell.receiverView.isHidden = true
+                cell.senderView.isHidden = true
+                //cell.senderWidth.constant = 200
+               // cell.senderHeight.constant = 150
+                cell.senderSendImge.isHidden = false
+                cell.ReceiverGetImage.isHidden = true
                 
-                cell?.senderLocationName.isHidden = true
+                cell.senderLocationName.isHidden = true
             
-                cell?.senderLblTime.isHidden = true
-                cell?.receiverLblTime.isHidden = false
-                cell?.lblsenderMsg.isHidden = true
-                cell?.lblReceiverMsg.isHidden = true
-                cell?.ReceiverImage.isHidden = true
-                cell?.senderImage.isHidden = false
-                cell?.lblsenderMsg.text = msgDta[indexPath.row].message
-                cell?.lblsenderMsg.frame.inset(by: UIEdgeInsets.init(top: 5, left: 15, bottom: 5, right: 15))
-                cell?.senderImage.image = #imageLiteral(resourceName: "user (3)")
+                cell.senderLblTime.isHidden = true
+                cell.receiverLblTime.isHidden = false
+                cell.lblsenderMsg.isHidden = true
+                cell.lblReceiverMsg.isHidden = true
+                cell.ReceiverImage.isHidden = true
+                cell.senderImage.isHidden = false
+                cell.lblsenderMsg.text = msgDta[indexPath.row].message
+                cell.lblsenderMsg.frame.inset(by: UIEdgeInsets.init(top: 5, left: 15, bottom: 5, right: 15))
+                cell.senderImage.image = #imageLiteral(resourceName: "user (3)")
                 
-                cell?.senderSendImge.image = #imageLiteral(resourceName: "user (3)")
+                cell.senderSendImge.image = #imageLiteral(resourceName: "user (3)")
                 // let date = self.messageData[indexPath.row]["created_date"] as? String ?? ""
                 let formatter = DateFormatter.init()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 // formatter.locale = Locale.init(identifier: "en_US_POSIX")
                 
-                cell?.sendertime.backgroundColor = UIColor.white
+                cell.sendertime.backgroundColor = UIColor.white
 
-                cell!.sendertime.text = msgDta[indexPath.row].time_format
+                cell.sendertime.text = msgDta[indexPath.row].time_format
                 
               
-                return cell!
-            }else{
-                cell?.sender_stack_con.constant = 0
-                cell?.img_sender_con.constant = 0
-                cell?.img_reciver_con.constant = 0
-                cell?.reciver_stact_con.constant = 0
+                return cell
+            case .message:
+                cell.sender_stack_con.constant = 0
+                cell.img_sender_con.constant = 0
+                cell.img_reciver_con.constant = 0
+                cell.reciver_stact_con.constant = 0
                 
                 
-                cell?.senderStackView.isHidden = true
-                cell?.receiverStackView.isHidden = true
-                cell?.receiverView.isHidden = false
-                cell?.senderView.isHidden = false
-               // cell?.senderWidth.constant = 0
-               // cell?.senderHeight.constant = 0
-                cell?.senderSendImge.isHidden = true
-                cell?.ReceiverGetImage.isHidden = true
-                cell?.senderSendImge.isHidden = true
-                cell?.ReceiverGetImage.isHidden = true
-                cell?.receiverView.isHidden = true
-                cell?.senderView.isHidden = false
-                cell?.senderLblTime.isHidden = true
-                cell?.receiverLblTime.isHidden = false
-                cell?.lblsenderMsg.isHidden = false
-                cell?.lblReceiverMsg.isHidden = true
-                cell?.ReceiverImage.isHidden = true
-                cell?.senderImage.isHidden = false
-                cell?.lblsenderMsg.text = msgDta[indexPath.row].message
-                cell?.lblsenderMsg.frame.inset(by: UIEdgeInsets.init(top: 5, left: 15, bottom: 5, right: 15))
-                cell?.senderImage.image = #imageLiteral(resourceName: "user (3)")
+                cell.senderStackView.isHidden = true
+                cell.receiverStackView.isHidden = true
+                cell.receiverView.isHidden = false
+                cell.senderView.isHidden = false
+               // cell.senderWidth.constant = 0
+               // cell.senderHeight.constant = 0
+                cell.senderSendImge.isHidden = true
+                cell.ReceiverGetImage.isHidden = true
+                cell.senderSendImge.isHidden = true
+                cell.ReceiverGetImage.isHidden = true
+                cell.receiverView.isHidden = true
+                cell.senderView.isHidden = false
+                cell.senderLblTime.isHidden = true
+                cell.receiverLblTime.isHidden = false
+                cell.lblsenderMsg.isHidden = false
+                cell.lblReceiverMsg.isHidden = true
+                cell.ReceiverImage.isHidden = true
+                cell.senderImage.isHidden = false
+                cell.lblsenderMsg.text = msgDta[indexPath.row].message
+                cell.lblsenderMsg.frame.inset(by: UIEdgeInsets.init(top: 5, left: 15, bottom: 5, right: 15))
+                cell.senderImage.image = #imageLiteral(resourceName: "user (3)")
                 // let date = self.messageData[indexPath.row]["created_date"] as? String ?? ""
                 let formatter = DateFormatter.init()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 // formatter.locale = Locale.init(identifier: "en_US_POSIX")
                 
               
-                cell?.receiverLblTime.backgroundColor = UIColor.clear
+                cell.receiverLblTime.backgroundColor = UIColor.clear
 
-                cell!.receiverLblTime.text = msgDta[indexPath.row].time_format
+                cell.receiverLblTime.text = msgDta[indexPath.row].time_format
                 
                
-                return cell!
+                return cell
             }
         }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -740,6 +751,20 @@ class ChatTableViewCell: UITableViewCell {
     }
         
         // Initialization code
+}
+
+//MARK:- Public
+
+extension ChatTableViewCell {
+    func fill(message: TestChat)  {
+        //Do logic here
+    }
+}
+
+//MARK:- Private
+
+private extension ChatTableViewCell { //Private extensions go here
+
 }
 
 //MARK:- pickerView Delegate

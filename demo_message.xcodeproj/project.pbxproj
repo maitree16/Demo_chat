@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,9 @@
 		5A09394C7EE90CA2646E714E /* Pods_demo_message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70A90270546D636B97FB599A /* Pods_demo_message.framework */; };
 		63E355B34AF82526A5F2D0B8 /* Pods_demo_messageUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E2B70C3FDB8DFCDBE02486 /* Pods_demo_messageUITests.framework */; };
 		6684316F5E6F420540A577A5 /* Pods_demo_messageTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02AA89DEA87BA050EC7DE861 /* Pods_demo_messageTests.framework */; };
+		93EE1A3F25D30E2800A2E4CE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93EE1A3E25D30E2800A2E4CE /* Localizable.strings */; };
+		93EE1A4425D310FB00A2E4CE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE1A4325D310FB00A2E4CE /* Constants.swift */; };
+		93EE1A4A25D3153100A2E4CE /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EE1A4925D3153100A2E4CE /* Array.swift */; };
 		BD5C2DA423349515000489A0 /* ChatImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C2DA023349515000489A0 /* ChatImageTableViewCell.swift */; };
 		BD5C2DA523349515000489A0 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5C2DA123349515000489A0 /* Message.swift */; };
 		BD5C2DA623349515000489A0 /* Message.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD5C2DA223349515000489A0 /* Message.xib */; };
@@ -74,6 +77,9 @@
 		4CA5987C2333431C005F17FD /* PersonalChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalChatVC.swift; sourceTree = "<group>"; };
 		70A90270546D636B97FB599A /* Pods_demo_message.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_demo_message.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73E2B70C3FDB8DFCDBE02486 /* Pods_demo_messageUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_demo_messageUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93EE1A3E25D30E2800A2E4CE /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		93EE1A4325D310FB00A2E4CE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		93EE1A4925D3153100A2E4CE /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		A75E061E03CE972FF7117F90 /* Pods-demo_messageTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo_messageTests.release.xcconfig"; path = "Target Support Files/Pods-demo_messageTests/Pods-demo_messageTests.release.xcconfig"; sourceTree = "<group>"; };
 		BD2D61304F52A77171E8B4D9 /* Pods-demo_messageUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-demo_messageUITests.debug.xcconfig"; path = "Target Support Files/Pods-demo_messageUITests/Pods-demo_messageUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD5C2DA023349515000489A0 /* ChatImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -209,6 +215,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		93EE1A4825D3152400A2E4CE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				93EE1A4925D3153100A2E4CE /* Array.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		BD5C2D9C233494E7000489A0 /* xib */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,12 +254,15 @@
 		BD5C2DAD2334A387000489A0 /* Support_File */ = {
 			isa = PBXGroup;
 			children = (
+				93EE1A4825D3152400A2E4CE /* Extensions */,
 				BD5C2DAE2334A387000489A0 /* GlobalViewShadow.swift */,
 				BD5C2DB12334A387000489A0 /* AlertController.swift */,
 				BD5C2DB22334A387000489A0 /* ServiceManager.swift */,
 				BD5C2DB62334A387000489A0 /* DateFormatter.swift */,
 				BD5C2DB72334A387000489A0 /* RDTextField.swift */,
 				BD5C2DBB2334A387000489A0 /* UIAlertController.swift */,
+				93EE1A3E25D30E2800A2E4CE /* Localizable.strings */,
+				93EE1A4325D310FB00A2E4CE /* Constants.swift */,
 			);
 			path = Support_File;
 			sourceTree = "<group>";
@@ -379,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CA598562333404C005F17FD /* LaunchScreen.storyboard in Resources */,
+				93EE1A3F25D30E2800A2E4CE /* Localizable.strings in Resources */,
 				BD5C2DA723349515000489A0 /* ChatImage.xib in Resources */,
 				BD5C2DA623349515000489A0 /* Message.xib in Resources */,
 				4CA598532333404C005F17FD /* Assets.xcassets in Resources */,
@@ -453,28 +471,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-demo_message/Pods-demo_message-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
-				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/OpalImagePicker/OpalImagePicker.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-demo_message/Pods-demo_message-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpalImagePicker.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-demo_message/Pods-demo_message-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -509,20 +510,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-demo_message/Pods-demo_message-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-demo_message/Pods-demo_message-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-demo_message/Pods-demo_message-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -537,11 +529,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD5C2DC42334A387000489A0 /* DateFormatter.swift in Sources */,
+				93EE1A4425D310FB00A2E4CE /* Constants.swift in Sources */,
 				BD5C2DBF2334A387000489A0 /* AlertController.swift in Sources */,
 				4CA5987F2333431C005F17FD /* PersonalChatVC.swift in Sources */,
 				4CA5987E2333431C005F17FD /* MessageVC.swift in Sources */,
 				BD5C2DC92334A387000489A0 /* UIAlertController.swift in Sources */,
 				4CA5987D2333431C005F17FD /* LocationMapVC.swift in Sources */,
+				93EE1A4A25D3153100A2E4CE /* Array.swift in Sources */,
 				BD5C2DC02334A387000489A0 /* ServiceManager.swift in Sources */,
 				BD5C2DC52334A387000489A0 /* RDTextField.swift in Sources */,
 				BD5C2DAA233497D4000489A0 /* MessageList.swift in Sources */,

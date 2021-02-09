@@ -8,8 +8,10 @@
 
 import UIKit
 
+//Can  this be final class?
 class GlobalViewShadow: NSObject {
     
+    //Can  this be final class?
     class func ShadowWithoutBorder(_ shadow: UIView,color: UIColor)
     {
         shadow.layer.shadowRadius = 3
@@ -17,6 +19,8 @@ class GlobalViewShadow: NSObject {
         shadow.layer.shadowOffset = CGSize.zero
         shadow.layer.shadowOpacity = 1.0//0.7
     }
+    
+    //Can  this be final class?
     class func ShadowWithBorder(_ BorderShadow: UIView)
     {
         
@@ -31,7 +35,7 @@ class GlobalViewShadow: NSObject {
     }
     
     
-    
+    //Can  this be final class?
     class func OnlyShadow(_ shadow: UIView)
     {
         shadow.layer.shadowColor = UIColor.darkGray.cgColor

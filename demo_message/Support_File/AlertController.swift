@@ -8,9 +8,33 @@
 
 import UIKit
 
+extension String {
+    ///tableName is FreeNow,
+    ///missing string will be displayed when no value exists.
+    func localizedString(_ comment: String = "") -> String {
+        NSLocalizedString(
+            self,
+            tableName: "Localizable",
+            value: "missing string: \(self)",
+            comment: comment
+        )
+    }
+}
+
+//Can  this be final class?
 class RDAlertController
 {
-    
+    //Can  this be final class?
+    //Avoid singltons. If you want to use singleton do it like this
+//    class API
+//    {
+//        static let shared = API()
+//
+//        private init()
+//        {
+//            // Set up API instance
+//        }
+//    }
     class var shared:RDAlertController
     {
         struct sharedController
@@ -23,7 +47,7 @@ class RDAlertController
     func simpleAlert(with title:String?,message:String?,presentOn vc:UIViewController)
     {
         let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction.init(title: "OK", style: .default, handler: nil)
+        let action = UIAlertAction.init(title: "okay.key".localizedString(), style: .default, handler: nil) //Use localisation
         alert.addAction(action)
         vc.present(alert, animated: true, completion: nil)
     }
