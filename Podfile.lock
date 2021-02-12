@@ -32,7 +32,7 @@ DEPENDENCIES:
   - SkyFloatingLabelTextField
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - Cosmos
     - GoogleMaps
@@ -48,7 +48,7 @@ SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
   Cosmos: a6fb17284281fa12cf4c85c2efecd440a215ec44
   GoogleMaps: fd5c9fa58871781b9fb94d4936f19c69fe60ce32
-  GooglePlacePicker: 0c90898945f02ef36cce86fc9a107e1c5d3d26b1
+  GooglePlacePicker: 02326873b8f923fc1f82ad694c33a625a8f6a728
   GooglePlaces: f09e76993c9c3ee4af8f4f7f535bb94d6aa3b649
   KVNProgress: d7046cce142f1aeb740db39dc3cacfe910fac354
   OpalImagePicker: 40e9d4c27018538a704d8da34b2ff3a2a54a3dc8
@@ -58,4 +58,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d7b3de28158548f3cd1a33024e6a45fea7bb429a
 
-COCOAPODS: 1.6.2
+COCOAPODS: 1.9.3

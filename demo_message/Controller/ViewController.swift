@@ -8,7 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+//remove if not using
+//rename if you are using
+class ViewController2: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

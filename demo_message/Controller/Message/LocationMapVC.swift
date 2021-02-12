@@ -17,16 +17,22 @@ protocol CurrentLocationDelegate {
     func getLocation(coordinate : CLLocationCoordinate2D,name :String)
 }
 
+// Dont use short hand like VC. Call it LocationMaoViewController
+//Add final to class if it cant be subclassed
 class LocationMapVC: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSPlacePickerViewControllerDelegate {
     
+    //Call it cancelButton
+    // Try adding views programiccaly, use libray purelayout for aoutlayout
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var btnSend: UIButton!
     @IBOutlet weak var locationLabel: UILabel!
     
-    var marker = GMSMarker()
+    //Theses can be private
+     var marker = GMSMarker()
     var CurrentCordinate = CLLocationCoordinate2D()
     var locationManager = CLLocationManager()
+    //delegate should be weak otherwise it can r´create retain cycle
     var delegate : CurrentLocationDelegate?
 
     override func viewDidLoad() {
@@ -65,13 +71,14 @@ class LocationMapVC: UIViewController,CLLocationManagerDelegate,GMSMapViewDelega
         
         let location = locations.last?.coordinate
         CurrentCordinate = location!
+        //Remove prints
         print(locations.last?.coordinate)
         CLGeocoder().reverseGeocodeLocation(locations[0]) { (placeMark, error) in
             if error == nil && placeMark?.count ?? 0 > 0
             {
                 if let places = placeMark{
                     print(places)
-                    
+                    //remove warnings
                     let country = places.last?.country ?? ""
                     
                     let Pickupcity = places.last?.locality ?? ""
@@ -101,8 +108,10 @@ class LocationMapVC: UIViewController,CLLocationManagerDelegate,GMSMapViewDelega
         
     }
     
+    //dont use short hand like btn. Call it cancelButtonPressed
+    //Rather than IBOutlet you can call
     @IBAction func btnCancelPressed(_ sender: Any) {
-        
+        //Remove commentedCode
 //        let center = CLLocationCoordinate2D(latitude: CurrentCordinate.latitude, longitude: CurrentCordinate.longitude)
 //        let northEast = CLLocationCoordinate2D(latitude: center.latitude + 0.001,
 //                                               longitude: center.longitude + 0.001)
@@ -128,6 +137,7 @@ class LocationMapVC: UIViewController,CLLocationManagerDelegate,GMSMapViewDelega
         // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
         
+        //Remove prints
         print("Place name \(place.name)")
         print("Place address \(place.formattedAddress)")
         print("Place attributions \(place.attributions)")
@@ -139,5 +149,10 @@ class LocationMapVC: UIViewController,CLLocationManagerDelegate,GMSMapViewDelega
         
         print("No place selected")
     }
+    
+}
+
+//Put private methods in here
+private extension LocationMapVC {
     
 }

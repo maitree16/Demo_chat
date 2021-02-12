@@ -18,6 +18,7 @@ class ServiceManager
     
     // base url
     
+    //remove capitilastion
     private(set) var Url =  ""
     private(set) var ClientVersion = ""
     private(set) var BusinessVersion = ""
@@ -50,6 +51,10 @@ class ServiceManager
         return NetworkReachabilityManager()!.isReachable
     }
     
+    //This code is pretty messy.
+    //try to avoid nested if staments
+    //See if you can clean it up
+    // use more functions if neccessary
     func MakeApiCall(ForServiceName serviceName:String,withParameters Parameters:[String:Any]?,withAttachments Attachments:[Any]?,withAttachmentName:[String]?,UploadParameter:String?,httpMethod:HTTPMethod,ShowLoader:Bool,ShowTrueFalseValue:Bool,showretry:Bool? = true ,RetryMethod:(()->())?,URLisStatic:Bool? = false,completionHandler:@escaping CompletionHandler)
     {
         var url = ""
@@ -166,7 +171,7 @@ class ServiceManager
                                 }
                             }
                         }
-                    case .failure(let _):
+                    case .failure(let _): //Remove (let _)
                         if ShowLoader{
                             KVNProgress.dismiss(completion: {
                                 if showretry != false{

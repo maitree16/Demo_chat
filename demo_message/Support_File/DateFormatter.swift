@@ -9,20 +9,22 @@
 
 import Foundation
 
-extension Date{
-    
-   static func Convert(Date:String,ToFormatter:String,FromFormatter:String) -> String {
+extension Date {
+
+   static func convert(date:String, toFormatter:String, fromFormatter:String) -> String {
         
-        let Formatter = DateFormatter()
-        Formatter.dateFormat = ToFormatter
+        let formatter = DateFormatter() //Dont use capitalisation
+        formatter.dateFormat = toFormatter
         
-        guard let ToDate:Date = Formatter.date(from: Date) else {return ""}
+        guard let toDate:Date = formatter.date(from: date) else {
+            return ""
+        } // guard on mutiple lines
         
-        Formatter.dateFormat = FromFormatter
+        formatter.dateFormat = fromFormatter
         
-        let ConvertDate = Formatter.string(from: ToDate)
+        let convertDate = formatter.string(from: toDate)
         
-        return ConvertDate
+        return convertDate
         
     }
 }
