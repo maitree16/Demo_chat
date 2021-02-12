@@ -11,7 +11,7 @@ import Foundation
 
 extension Date {
 
-   static func Convert(date:String, toFormatter:String, fromFormatter:String) -> String {
+   static func convert(date:String, toFormatter:String, fromFormatter:String) -> String {
         
         let formatter = DateFormatter() //Dont use capitalisation
         formatter.dateFormat = toFormatter

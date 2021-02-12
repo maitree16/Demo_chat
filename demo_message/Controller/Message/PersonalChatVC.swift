@@ -150,7 +150,7 @@ class PersonalChatVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         }
         let userid = "34" //Why 34?
         cell.selectionStyle = .none
-        let cellImage = tableView.dequeueReusableCell(withIdentifier: StringConstants.cellImage.rawValue) as! ChatImageTableViewCell //WTF?
+        let cellImage = tableView.dequeueReusableCell(withIdentifier: StringConstants.cellImage.rawValue) as! ChatImageTableViewCell //Cell image not being used
   
         if message.userIdEqualsMagicNumber34 {
             
